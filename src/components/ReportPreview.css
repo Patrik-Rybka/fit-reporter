@@ -1,0 +1,331 @@
+/* A4 Preview Sheet Stylesheet */
+
+/* Wrapper for the A4 pages stacked vertically */
+.report-preview-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+  padding-bottom: 50px;
+}
+
+/* Main A4 container inside the preview area */
+.a4-page {
+  /* Dimensions are pre-defined in index.css, but we refine them here */
+  width: 794px;
+  height: 1123px;
+  min-height: 1123px;
+  max-height: 1123px;
+  background-color: #ffffff;
+  color: #1f2937;
+  padding: 48px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-sizing: border-box;
+  margin: 0 auto;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+/* Common Report Elements */
+.report-header {
+  border-bottom: 3px solid var(--color-theme-accent);
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+}
+
+
+.report-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.report-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+
+.report-date {
+  font-size: 0.95rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.report-type-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: #f3f4f6;
+  color: #374151;
+  margin-top: 6px;
+}
+
+/* Metrics Cards Grid */
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: #6b7280;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-value {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.01em;
+}
+
+.stat-unit {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4b5563;
+  margin-left: 2px;
+}
+
+/* Section Dividers */
+.report-section {
+  margin-bottom: 24px;
+}
+
+.report-section-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #111827;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Charts List */
+.charts-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chart-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-info-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #4b5563;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.chart-container-wrapper {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Splits Table */
+.splits-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 6px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.01);
+}
+
+.splits-table th {
+  background-color: #f9fafb;
+  text-align: left;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #4b5563;
+  padding: 10px 14px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.splits-table td {
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  border-bottom: 1px solid #f3f4f6;
+  color: #1f2937;
+}
+
+.splits-table tr:last-child td {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.splits-table tr:nth-child(even) {
+  background-color: #fcfcfc;
+}
+
+/* Notes Textbox */
+.notes-box {
+  background-color: #fffbeb;
+  border-left: 4px solid #f59e0b;
+  padding: 14px 18px;
+  border-radius: 6px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #78350f;
+  border-top: 1px solid #fef3c7;
+  border-right: 1px solid #fef3c7;
+  border-bottom: 1px solid #fef3c7;
+}
+
+/* Map Wrapper */
+.map-wrapper {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+
+/* ==========================================================================
+   THEME CUSTOMIZATIONS
+   ========================================================================== */
+
+/* 1. Garmin Theme (Deep blue, sporty, structured) */
+.theme-garmin {
+  --color-accent: var(--color-theme-accent);
+}
+
+.theme-garmin .report-type-badge {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  border-radius: 4px;
+}
+
+.theme-garmin .stat-card {
+  border-top: 3px solid var(--color-theme-accent);
+}
+
+.theme-garmin .splits-table th {
+  border-bottom-color: var(--color-theme-accent);
+}
+
+/* 2. Strava Theme (Vibrant Orange, bold headers, modern) */
+.theme-strava {
+  --color-accent: var(--color-theme-accent);
+}
+
+.theme-strava .report-title {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  color: #e03e00;
+}
+
+.theme-strava .report-type-badge {
+  background-color: #ffedd5;
+  color: #ea580c;
+  border-radius: 9999px;
+  padding: 4px 12px;
+}
+
+.theme-strava .stat-card {
+  background: #fffbf9;
+  border-color: #fed7aa;
+}
+
+.theme-strava .report-section-title {
+  color: #e03e00;
+}
+
+/* 3. Mono / Elegant Theme (Minimalist Serif, classical grid, elegant margins) */
+.theme-mono {
+  --color-accent: #111827;
+  background-color: #fdfdfb; /* warm off-white */
+}
+
+.theme-mono .report-title {
+  font-family: Georgia, serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: #000;
+}
+
+.theme-mono .report-date {
+  font-family: Georgia, serif;
+  font-style: italic;
+}
+
+.theme-mono .report-type-badge {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+  border-radius: 0px;
+}
+
+.theme-mono .stat-card {
+  background: #ffffff;
+  border: 1px double #000000;
+  border-radius: 0px;
+}
+
+.theme-mono .report-section-title {
+  font-family: Georgia, serif;
+  font-weight: 500;
+  border-bottom: 2px double #000000;
+  color: #000000;
+  text-transform: none;
+}
+
+.theme-mono .splits-table th {
+  background-color: #ffffff;
+  border-bottom: 2px double #000000;
+  color: #000000;
+}
+
+.theme-mono .splits-table td {
+  border-bottom: 1px dashed #cccccc;
+}
+
+.theme-mono .chart-container-wrapper,
+.theme-mono .map-wrapper {
+  border: 1px solid #000000;
+  border-radius: 0px;
+}
+
+.theme-mono .notes-box {
+  background-color: #fbfbfb;
+  border: 1px solid #000000;
+  border-left-width: 4px;
+  color: #000000;
+  border-radius: 0px;
+}
