@@ -1,16 +1,16 @@
-# Fit Reporter 🚴‍♂️🏃‍♀️
+# Fit Reporter
 
 **Fit Reporter** je moderní desktopová aplikace pro detailní analýzu sportovních souborů `.FIT` (ze zařízení Garmin, Wahoo, Strava, Polar a dalších) a rychlé generování přehledných tištěných reportů.
 
 ---
 
-## 🔒 100% soukromí (Plně offline)
+## 100% soukromí (Plně offline)
 
 Aplikace funguje **zcela bez internetového připojení**. Veškerá analýza souborů, výpočty výkonnostních metrik a vykreslování tras na mapě probíhá **výhradně lokálně na vašem počítači**. Žádná vaše tréninková data (GPS souřadnice, tepové frekvence, osobní statistiky) se nikdy neodesílají na žádný externí server ani cloud.
 
 ---
 
-## 🌟 Hlavní funkce
+## Hlavní funkce
 
 *   **Rychlý import:** Stačí přetáhnout nebo vybrat `.FIT` soubor z vašeho tréninkového zařízení.
 *   **Interaktivní přehled:**
@@ -24,7 +24,7 @@ Aplikace funguje **zcela bez internetového připojení**. Veškerá analýza so
 
 ---
 
-## 📥 Instalace aplikace
+## Instalace aplikace
 
 Aplikaci nainstalujete ve dvou jednoduchých krocích:
 
@@ -35,7 +35,7 @@ Aplikaci nainstalujete ve dvou jednoduchých krocích:
 
 ---
 
-## 📖 Jak aplikaci používat
+## Jak aplikaci používat
 
 1.  **Načtení aktivity:** Po spuštění klikněte na **Vybrat .FIT soubor** (nebo si aplikaci vyzkoušejte kliknutím na ukázkovou demo aktivitu).
 2.  **Úprava reportu:** V levém panelu v záložce *Metriky* zaškrtněte, které grafy a tabulky chcete v reportu zobrazit. V záložce *Vzhled* můžete zvolit barevné téma a přidat vlastní titulek. V záložce *Poznámky* můžete připsat své pocity z tréninku.
