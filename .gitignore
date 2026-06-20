@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Tauri installers and updater keys
+tauri-updater-keys.txt
+*.exe
+*.msi

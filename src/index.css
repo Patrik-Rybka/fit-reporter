@@ -5,14 +5,14 @@
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-display: 'Outfit', var(--font-sans);
 
-  /* Modern HandBrake Slate Theme Colors */
-  --color-bg-app: #121214;
-  --color-bg-panel: #1e1e24;
-  --color-bg-tab-active: #2a2a32;
-  --color-bg-toolbar: #1a1a1f;
-  --color-border: #2e2e38;
+  /* Modern HandBrake Slate Theme Colors (Premium Obsidian Dark) */
+  --color-bg-app: #08080a;
+  --color-bg-panel: #121215;
+  --color-bg-tab-active: #18181f;
+  --color-bg-toolbar: #0c0c0e;
+  --color-border: #1e1e24;
   --color-text-main: #e4e4e7;
-  --color-text-muted: #a1a1aa;
+  --color-text-muted: #8e8e93;
   
   /* Brand accents */
   --color-accent-garmin: #0077c8;
@@ -24,12 +24,31 @@
   /* Layout Dimensions */
   --height-toolbar: 56px;
   --height-statusbar: 28px;
-  --width-settings: 460px;
+  --width-settings: 400px;
   
   /* Printable page colors */
   --color-page-bg: #ffffff;
   --color-page-text: #1f2937;
   --color-page-border: #e5e7eb;
+}
+
+/* Dynamic brand accent themes applied to the App shell */
+.theme-garmin {
+  --color-accent: var(--color-accent-garmin);
+  --color-accent-hover: #0060a3;
+  --color-accent-glow: rgba(0, 119, 200, 0.15);
+}
+
+.theme-strava {
+  --color-accent: var(--color-accent-strava);
+  --color-accent-hover: #d04400;
+  --color-accent-glow: rgba(252, 82, 0, 0.15);
+}
+
+.theme-mono {
+  --color-accent: #3b82f6; /* premium high-contrast blue for UI controls */
+  --color-accent-hover: #2563eb;
+  --color-accent-glow: rgba(59, 130, 246, 0.15);
 }
 
 * {
@@ -100,39 +119,45 @@ button, input, textarea, select {
 }
 
 .toolbar-btn {
-  background: #2a2a32;
+  background: #1b1b22;
   color: var(--color-text-main);
   border: 1px solid var(--color-border);
-  padding: 8px 14px;
-  border-radius: 6px;
+  padding: 9px 16px;
+  border-radius: 8px;
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 6px;
-  transition: all 0.15s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .toolbar-btn:hover {
-  background: #363640;
-  border-color: #3e3e4f;
+  background: #23232c;
+  border-color: #3f3f4e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .toolbar-btn.btn-primary {
   background: var(--color-accent);
   color: #fff;
   border-color: transparent;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
 }
 
 .toolbar-btn.btn-primary:hover {
   background: var(--color-accent-hover);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.35);
 }
 
 .toolbar-btn:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
-  background: #202026;
+  background: #121216;
+  transform: none;
+  box-shadow: none;
 }
 
 .file-info {
@@ -155,10 +180,12 @@ button, input, textarea, select {
   overflow: hidden;
 }
 
-/* Settings Panel (Left side) */
+/* Settings Panel (Left side) with clean premium glass effect */
 .settings-panel {
   width: var(--width-settings);
-  background-color: var(--color-bg-panel);
+  background-color: rgba(18, 18, 21, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-right: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
@@ -166,44 +193,41 @@ button, input, textarea, select {
   min-height: 0;
 }
 
-/* Tabs Navigation */
+/* Tabs Navigation - Balanced spacing for 520px width settings panel */
 .tabs-header {
   display: flex;
   background-color: var(--color-bg-toolbar);
   border-bottom: 1px solid var(--color-border);
-  overflow-x: auto;
-  scrollbar-width: none; /* Firefox */
-}
-
-.tabs-header::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
+  width: 100%;
 }
 
 .tab-btn {
+  flex: 1;
   background: transparent;
   border: none;
   border-right: 1px solid var(--color-border);
   color: var(--color-text-muted);
-  padding: 12px 16px;
-  font-size: 0.85rem;
-  font-weight: 500;
+  padding: 14px 2px;
+  font-size: 0.78rem;
+  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
+  gap: 4px;
   white-space: nowrap;
-  transition: all 0.15s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   border-bottom: 2px solid transparent;
 }
 
 .tab-btn:hover {
-  background: #24242c;
+  background: rgba(255, 255, 255, 0.02);
   color: var(--color-text-main);
 }
 
 .tab-btn.active {
   background: var(--color-bg-tab-active);
-  color: var(--color-text-main);
+  color: #fff;
   border-bottom: 2px solid var(--color-accent);
 }
 
@@ -237,45 +261,79 @@ button, input, textarea, select {
 .checkbox-label {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
   font-size: 0.9rem;
   color: var(--color-text-main);
   cursor: pointer;
   user-select: none;
-  padding: 8px 10px;
-  border-radius: 6px;
-  background: #23232c;
-  border: 1px solid transparent;
-  transition: all 0.15s ease;
+  padding: 11px 14px;
+  border-radius: 8px;
+  background: #18181f;
+  border: 1px solid var(--color-border);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .checkbox-label:hover {
-  background: #2a2a35;
-  border-color: var(--color-border);
+  background: #1e1e27;
+  border-color: #3e3e4f;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .checkbox-label input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  accent-color: var(--color-accent);
-  cursor: pointer;
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkbox-custom {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.checkbox-custom::before {
+  content: "";
+  position: absolute;
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkbox-custom {
+  background-color: var(--color-accent);
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkbox-custom::before {
+  transform: translateX(16px);
 }
 
 .text-input, .textarea-input, .select-input {
   width: 100%;
-  background: #16161b;
+  background: #0d0d10;
   border: 1px solid var(--color-border);
   color: #fff;
-  padding: 10px 12px;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  transition: all 0.15s ease;
+  padding: 11px 14px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  transition: all 0.2s ease;
 }
 
 .text-input:focus, .textarea-input:focus, .select-input:focus {
   outline: none;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  background: #101014;
 }
 
 .textarea-input {
@@ -290,9 +348,15 @@ button, input, textarea, select {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 40px;
+  padding: 30px;
   overflow-y: auto;
   min-height: 0;
+}
+
+@media (max-width: 1300px) {
+  .preview-panel {
+    padding: 16px;
+  }
 }
 
 /* A4 Page Simulation */
@@ -301,7 +365,8 @@ button, input, textarea, select {
   min-height: 1123px; /* A4 height in px at 96 dpi */
   background-color: var(--color-page-bg);
   color: var(--color-page-text);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.65);
+  border-radius: 4px;
   padding: 48px;
   display: flex;
   flex-direction: column;
@@ -502,4 +567,54 @@ button, input, textarea, select {
   0% { opacity: 0.4; }
   50% { opacity: 1; }
   100% { opacity: 0.4; }
+}
+
+/* Debug Accordion Box Styles */
+.debug-details {
+  margin-top: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.debug-summary {
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.debug-summary:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+  color: #fff;
+}
+
+.debug-details[open] .debug-summary {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.debug-content {
+  padding: 12px;
+}
+
+.debug-textarea {
+  width: 100%;
+  height: 180px;
+  background-color: #0d0d10;
+  color: #10b981;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.75rem;
+  padding: 8px;
+  resize: none;
+  outline: none;
 }

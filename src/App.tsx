@@ -12,8 +12,10 @@ import {
   Footprints,
   Activity
 } from "lucide-react";
-import { open, save } from "@tauri-apps/plugin-dialog";
+import { open, save, ask } from "@tauri-apps/plugin-dialog";
 import { readFile, writeFile } from "@tauri-apps/plugin-fs";
+import { check } from "@tauri-apps/plugin-updater";
+import { relaunch } from "@tauri-apps/plugin-process";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import "./App.css";
@@ -106,6 +108,41 @@ function App() {
       }
     }
     setStatusText("Aplikace připravena");
+  }, []);
+
+  // Check for updates on startup
+  useEffect(() => {
+    const runUpdater = async () => {
+      try {
+        console.log("Checking for updates...");
+        const update = await check();
+        if (update) {
+          console.log(`Update found: ${update.version}`);
+          const confirmed = await ask(
+            `Nová verze v${update.version} je k dispozici. Chcete ji stáhnout a nainstalovat?\n\nPoznámky k vydání:\n${update.body || 'Žádné poznámky'}`,
+            { title: "Aktualizace aplikace", kind: "info", okLabel: "Aktualizovat", cancelLabel: "Zrušit" }
+          );
+          if (confirmed) {
+            setStatusText("Stahování a instalace aktualizace...");
+            setLoading(true);
+            await update.downloadAndInstall();
+            setStatusText("Restartuji aplikaci...");
+            await relaunch();
+          }
+        } else {
+          console.log("Žádné nové aktualizace");
+        }
+      } catch (err) {
+        console.error("Failed to check for updates", err);
+      }
+    };
+
+    // Run update check after a brief delay so the app UI loads fully first
+    const timer = setTimeout(() => {
+      runUpdater();
+    }, 1500);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const handleOpenFile = async () => {
@@ -401,7 +438,7 @@ function App() {
   };
 
   return (
-    <div className="app-container">
+    <div className={`app-container theme-${theme}`}>
       {/* Top Toolbar */}
       <header className="toolbar">
         <div className="toolbar-group">
@@ -461,7 +498,7 @@ function App() {
               onClick={() => setActiveTab('charts')}
             >
               <LineChart size={14} />
-              Grafy a Mapa
+              Grafy & Mapa
             </button>
             <button 
               className={`tab-btn ${activeTab === 'style' ? 'active' : ''}`}
@@ -492,25 +529,18 @@ function App() {
                       <p><span style={{ color: 'var(--color-text-muted)' }}>Vzdálenost:</span> {activity.distance} km</p>
                       <p><span style={{ color: 'var(--color-text-muted)' }}>Čas trvání:</span> {formatDuration(activity.durationSeconds)}</p>
                       {activity.debugText && (
-                        <div style={{ marginTop: '15px' }}>
-                          <span style={{ color: 'var(--color-text-muted)', fontSize: '0.8rem', display: 'block', marginBottom: '5px' }}>Struktura dat (Debug):</span>
-                          <textarea 
-                            readOnly 
-                            value={activity.debugText} 
-                            style={{ 
-                              width: '100%', 
-                              height: '180px', 
-                              backgroundColor: '#1f2937', 
-                              color: '#10b981', 
-                              border: '1px solid #374151', 
-                              borderRadius: '4px', 
-                              fontFamily: 'monospace', 
-                              fontSize: '0.75rem',
-                              padding: '5px',
-                              resize: 'none'
-                            }} 
-                          />
-                        </div>
+                        <details className="debug-details">
+                          <summary className="debug-summary">
+                            <span>Struktura dat (Debug)</span>
+                          </summary>
+                          <div className="debug-content">
+                            <textarea 
+                              readOnly 
+                              value={activity.debugText} 
+                              className="debug-textarea"
+                            />
+                          </div>
+                        </details>
                       )}
                     </div>
                   ) : (
@@ -527,44 +557,49 @@ function App() {
                 <h3 className="section-title">Co zahrnout do reportu</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   <label className="checkbox-label">
+                    <span>Mapa trasy</span>
                     <input 
                       type="checkbox" 
                       checked={showMap} 
                       onChange={(e) => setShowMap(e.target.checked)} 
                     />
-                    <span>Mapa trasy</span>
+                    <span className="checkbox-custom"></span>
                   </label>
                   <label className="checkbox-label">
+                    <span>Graf srdečního tepu</span>
                     <input 
                       type="checkbox" 
                       checked={showHeartRate} 
                       onChange={(e) => setShowHeartRate(e.target.checked)} 
                     />
-                    <span>Graf srdečního tepu</span>
+                    <span className="checkbox-custom"></span>
                   </label>
                   <label className="checkbox-label">
+                    <span>Graf rychlosti / tempa</span>
                     <input 
                       type="checkbox" 
                       checked={showSpeed} 
                       onChange={(e) => setShowSpeed(e.target.checked)} 
                     />
-                    <span>Graf rychlosti / tempa</span>
+                    <span className="checkbox-custom"></span>
                   </label>
                   <label className="checkbox-label">
+                    <span>Graf výškového profilu</span>
                     <input 
                       type="checkbox" 
                       checked={showElevation} 
                       onChange={(e) => setShowElevation(e.target.checked)} 
                     />
-                    <span>Graf výškového profilu</span>
+                    <span className="checkbox-custom"></span>
                   </label>
                   <label className="checkbox-label">
+                    <span>Tabulka mezičasů (Laps)</span>
                     <input 
                       type="checkbox" 
                       checked={showSplits} 
                       onChange={(e) => setShowSplits(e.target.checked)} 
                     />
-                    <span>Tabulka mezičasů (Laps)</span>
+                    <span className="checkbox-custom"></span>
                   </label>
                 </div>
               </>
@@ -587,16 +622,18 @@ function App() {
                 </div>
                 <div className="control-group" style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <label className="checkbox-label">
+                    <span>Vybarvit trasu podle rychlosti</span>
                     <input 
                       type="checkbox" 
                       checked={mapColoredBySpeed} 
                       onChange={(e) => setMapColoredBySpeed(e.target.checked)} 
                     />
-                    <span>Vybarvit trasu podle rychlosti</span>
+                    <span className="checkbox-custom"></span>
                   </label>
                   <label className="checkbox-label">
-                    <input type="checkbox" defaultChecked />
                     <span>Vyhladit křivky grafů</span>
+                    <input type="checkbox" defaultChecked />
+                    <span className="checkbox-custom"></span>
                   </label>
                 </div>
               </>

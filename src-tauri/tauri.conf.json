@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "tauri-app",
+  "productName": "Fit Reporter",
   "version": "0.1.0",
-  "identifier": "com.lenovo.tauri-app",
+  "identifier": "com.patrik-rybka.fit-reporter",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
@@ -12,9 +12,11 @@
   "app": {
     "windows": [
       {
-        "title": "tauri-app",
-        "width": 800,
-        "height": 600
+        "title": "Fit Reporter",
+        "width": 1280,
+        "height": 850,
+        "minWidth": 1240,
+        "minHeight": 750
       }
     ],
     "security": {
@@ -23,6 +25,15 @@
         "enable": true,
         "scope": ["$APPDATA/**/*", "$APPCACHE/**/*", "$APPLOCALDATA/**/*"]
       }
+    }
+  },
+  "plugins": {
+    "updater": {
+      "active": true,
+      "endpoints": [
+        "https://github.com/Patrik-Rybka/fit-reporter/releases/latest/download/latest.json"
+      ],
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDdDOTUxOTg5NDIwMjE2N0UKUldSK0ZnSkNpUm1WZkN5ZDNoeXZmR0ZPeERMVytIRHFzK29VZTZmb01UcWJoS1ptOGNmRjdrMFcK"
     }
   },
   "bundle": {
@@ -34,6 +45,7 @@
       "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
-    ]
+    ],
+    "licenseFile": "license.rtf"
   }
 }

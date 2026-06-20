@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "notes": "Zde napište seznam změn a novinek v této verzi (zobrazí se uživateli v aplikaci).",
+  "pub_date": "2026-06-20T17:00:00Z",
+  "platforms": {
+    "windows-x86_64": {
+      "signature": "ZDE_VLOŽTE_PODPIS_SOUBORU_ZIP (získáte z .sig souboru vytvořeného při buildování)",
+      "url": "https://github.com/Patrik-Rybka/fit-reporter/releases/download/v0.2.0/tauri-app_0.2.0_x64_en-US.msi.zip"
+    }
+  }
+}
+
+/*
+--------------------------------------------------------------------------------
+NÁVOD K VYDÁNÍ AKTUALIZACE:
+--------------------------------------------------------------------------------
+1. Zvyšte verzi v "package.json" a "src-tauri/tauri.conf.json" (např. na "0.2.0").
+2. Spusťte build se systémovou proměnnou private key (PowerShell):
+   $env:TAURI_SIGNING_PRIVATE_KEY="váš_soukromý_klíč"
+   npm run tauri build
+3. Build vytvoří instalační soubor a také soubor s příponou ".sig" (obsahuje podpis).
+4. Otevřete tento soubor ".sig", zkopírujte z něj podpis a vložte jej do pole "signature" výše.
+5. Nahrajte instalační soubory na GitHub do nového Release s tagem "v0.2.0".
+6. Uložte tento soubor jako "latest.json" a nahrajte jej na GitHub jako součást stejného Release.
+--------------------------------------------------------------------------------
+*/
