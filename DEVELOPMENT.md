@@ -4,7 +4,7 @@ Tento soubor obsahuje instrukce pro instalaci závislostí, spuštění vývojov
 
 ---
 
-## 🛠️ Požadavky na prostředí
+## Požadavky na prostředí
 
 Pro spuštění a kompilaci aplikace na vašem počítači musíte mít nainstalované:
 
@@ -14,7 +14,7 @@ Pro spuštění a kompilaci aplikace na vašem počítači musíte mít nainstal
 
 ---
 
-## 🚀 Spuštění vývoje (Development)
+## Spuštění vývoje (Development)
 
 1.  Nainstalujte Node.js závislosti v kořenové složce projektu:
     ```bash
@@ -28,7 +28,7 @@ Pro spuštění a kompilaci aplikace na vašem počítači musíte mít nainstal
 
 ---
 
-## 📦 Sestavení produkční verze (Build)
+## Sestavení produkční verze (Build)
 
 Před spuštěním buildu musíte v PowerShellu nastavit proměnnou prostředí pro automatické podepisování balíčků (bez toho kompilátor nepovolí sestavit updater).
 
@@ -51,7 +51,7 @@ Po dokončení najdete hotové instalátory v adresáři:
 
 ---
 
-## 🔒 Správa updateru a klíčů
+## Správa updateru a klíčů
 
-*   **Veřejný klíč** (Public Key) je zapsán v souboru [tauri.conf.json](src-tauri/tauri.conf.json) pod položkou `plugins.updater.pubkey`. Slouží k tomu, aby nainstalovaná aplikace před stažením aktualizace ověřila její podpis.
+*   **Veřejný klíč** (Public Key) je zapsán v souboru [tauri.conf.json](src-tauri/tauri.conf.json) pod položkem `plugins.updater.pubkey`. Slouží k tomu, aby nainstalovaná aplikace před stažením aktualizace ověřila její podpis.
 *   **Soukromý klíč** (Private Key) slouží k podepsání balíčku při buildu. Tento klíč nesmí být nikdy nahrán na GitHub (je ignorován v `.gitignore`).
