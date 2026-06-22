@@ -21,6 +21,8 @@ import { jsPDF } from "jspdf";
 import "./App.css";
 
 import { parseFitFile, type FitActivity } from "./utils/fitParser";
+import { parseGpxFile } from "./utils/gpxParser";
+import { parseTcxFile } from "./utils/tcxParser";
 import { ReportPreview } from "./components/ReportPreview";
 import { generateWordDocument } from "./utils/wordExporter";
 
@@ -151,8 +153,8 @@ function App() {
       const selected = await open({
         multiple: false,
         filters: [{
-          name: "Sportovní aktivita (*.fit)",
-          extensions: ["fit"]
+          name: "Sportovní soubory (*.fit, *.gpx, *.tcx)",
+          extensions: ["fit", "gpx", "tcx"]
         }]
       });
 
@@ -164,10 +166,23 @@ function App() {
         // Read the file as binary array
         const bytes = await readFile(selected);
         setStatusText(`Načteno ${bytes.length} bajtů ze souboru.`);
-        // Parse actual FIT file bytes using our utility
+        
         try {
           const arrayBuffer = bytes.buffer;
-          const parsedActivity = await parseFitFile(arrayBuffer);
+          const extension = selected.split(".").pop()?.toLowerCase();
+          let parsedActivity: FitActivity;
+
+          if (extension === "gpx") {
+            setStatusText("Parsuji GPX data...");
+            parsedActivity = await parseGpxFile(arrayBuffer);
+          } else if (extension === "tcx") {
+            setStatusText("Parsuji TCX data...");
+            parsedActivity = await parseTcxFile(arrayBuffer);
+          } else {
+            setStatusText("Parsuji FIT data...");
+            parsedActivity = await parseFitFile(arrayBuffer);
+          }
+
           const fileName = selected.split(/[\\/]/).pop() || selected;
           parsedActivity.name = fileName.replace(/\.[^/.]+$/, "");
           
@@ -186,7 +201,7 @@ function App() {
         } catch (parseError) {
           console.error(parseError);
           setLoading(false);
-          setStatusText(`Chyba při parsování FIT souboru: ${parseError}`);
+          setStatusText(`Chyba při parsování souboru: ${parseError}`);
         }
       } else {
         setStatusText("Výběr souboru zrušen");
@@ -744,12 +759,12 @@ function App() {
               </div>
               <h2 className="welcome-title">Vytvořit report aktivity</h2>
               <p className="welcome-desc">
-                Vyberte sportovní soubor .FIT z vašeho zařízení Garmin, Wahoo, Strava nebo Polar a vygenerujte čistý tištěný report.
+                Vyberte sportovní soubor (.FIT, .GPX, .TCX) z vašeho zařízení a vygenerujte čistý tištěný report.
               </p>
               
               <button className="welcome-btn-large" onClick={handleOpenFile}>
                 <FolderOpen size={20} />
-                Vybrat .FIT soubor
+                Vybrat soubor aktivity
               </button>
               
               <button 
@@ -760,7 +775,7 @@ function App() {
                   setStatusText("Načtena ukázková data aktivity");
                 }}
               >
-                Nemáte po ruce .FIT soubor? Zkuste ukázkovou aktivitu
+                Nemáte po ruce soubor aktivity? Zkuste ukázkovou aktivitu
               </button>
 
               {recentActivities.length > 0 && (
@@ -813,7 +828,7 @@ function App() {
           <span>{statusText}</span>
         </div>
         <div>
-          <span>Fit Reporter v0.1.0 (Beta)</span>
+          <span>Fit Reporter v0.2.0 (Beta)</span>
         </div>
       </footer>
     </div>

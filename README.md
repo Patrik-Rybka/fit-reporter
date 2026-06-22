@@ -47,7 +47,7 @@ Aplikaci nainstalujete ve dvou jednoduchých krocích:
 
 Tento software a jeho zdrojový kód jsou šířeny pod licencí **All Rights Reserved** (Všechna práva vyhrazena). Jakékoli kopírování, modifikace, distribuce nebo komerční užití bez předchozího písemného souhlasu autora jsou zakázány. 
 
-V případě zájmu o spolupráci, licencování nebo jiné využití projektu mě prosím kontaktujte.
+V případě zájmu o spolupráci, licencování nebo jiné využití projektu mě prosím kontaktujte **vytvořením [Issue](https://github.com/Patrik-Rybka/fit-reporter/issues) v tomto repozitáři**.
 
 ---
 
@@ -105,7 +105,7 @@ You can install the application in two easy steps:
 
 This software and its source code are distributed under the **All Rights Reserved** license. Any copying, modification, distribution, or commercial use without the prior written consent of the author is prohibited.
 
-If you are interested in collaboration, licensing, or other uses of the project, please contact me.
+If you are interested in collaboration, licensing, or other uses of the project, please contact me by **creating an [Issue](https://github.com/Patrik-Rybka/fit-reporter/issues) in this repository**.
 
 ---
 
